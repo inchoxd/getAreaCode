@@ -3,10 +3,11 @@ import requests
 
 
 def add_check_digit(code):
-    digit = 11-((6*int(area_id[0])+5*int(area_id[1])+4*int(area_id[2])+3*int(area_id[3])+2*int(area_id[4]))%11)
-    area_code = code+str(digit)[-1]
+    a, b, c, d, e = map(int, code)
+    check_digit = 11-((6*a+5*b+4*c+3*d+2*e)%11)
+    area_code = code+str(check_digit)[-1]
 
-    return area_id
+    return area_code
 
 
 def get_json():
@@ -21,7 +22,7 @@ def get_json():
 
     with open("areaId.json", mode="w") as f:
         for area_num in range(1, 48):
-            uri = base_uri+str(f"{areaNum:02}")
+            uri = base_uri+str(f"{area_num:02}")
             r = requests.get(url=uri)
             r_json = r.json()
 
